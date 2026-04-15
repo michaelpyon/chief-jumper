@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chief-jumper",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "/Users/michaelpyon/ChiefJumper-Claude"],
+      "port": 8080
+    }
+  ]
+}
