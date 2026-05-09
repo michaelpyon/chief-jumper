@@ -5,12 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a1a">
+
+    <title>Chief Jumper - Climb the Corporate Ladder</title>
+    <meta name="description" content="A canvas-based vertical platformer where you boost, dodge, and climb your way up the org chart. Tap to jump, dual boosters to fly, survive the corporate grind.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chief Jumper - Climb the Corporate Ladder">
+    <meta property="og:description" content="A canvas-based vertical platformer where you boost, dodge, and climb your way up the org chart.">
+    <meta property="og:url" content="https://chief-jumper.vercel.app">
+    <meta property="og:image" content="https://chief-jumper.vercel.app/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Chief Jumper">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chief Jumper - Climb the Corporate Ladder">
+    <meta name="twitter:description" content="Boost, dodge, and climb your way up the org chart in this canvas-based vertical platformer.">
+    <meta name="twitter:image" content="https://chief-jumper.vercel.app/og-image.svg">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <title>Chief Jumper</title>
+    <link rel="canonical" href="https://chief-jumper.vercel.app">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="game"></canvas>
+    <canvas id="game" aria-label="Chief Jumper game canvas"></canvas>
+    <noscript>
+        <p style="color:#fff;text-align:center;padding:2rem;font-family:sans-serif;">
+            Chief Jumper needs JavaScript to run. Please enable it and reload.
+        </p>
+    </noscript>
     <script type="module" src="src/main.js"></script>
 </body>
 </html>
