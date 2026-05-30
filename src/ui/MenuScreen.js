@@ -9,7 +9,8 @@ export class MenuScreen {
         this.pulseTimer += dt;
     }
 
-    draw(ctx, canvasWidth, canvasHeight) {
+    // personalBest: { score, title } or null
+    draw(ctx, canvasWidth, canvasHeight, personalBest) {
         // Background
         ctx.fillStyle = COLORS.bg;
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -26,31 +27,45 @@ export class MenuScreen {
         }
         ctx.globalAlpha = 1;
 
+        const cx = canvasWidth / 2;
+        const mid = canvasHeight / 2;
+
         // Title
         ctx.fillStyle = COLORS.player;
         ctx.font = 'bold 28px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('CHIEF', canvasWidth / 2, canvasHeight / 2 - 40);
+        ctx.fillText('CHIEF', cx, mid - 40);
         ctx.fillStyle = COLORS.playerVisor;
-        ctx.fillText('JUMPER', canvasWidth / 2, canvasHeight / 2 - 8);
+        ctx.fillText('JUMPER', cx, mid - 8);
 
         // Subtitle
         ctx.fillStyle = '#888888';
         ctx.font = '10px monospace';
-        ctx.fillText('A Spartan Roguelike', canvasWidth / 2, canvasHeight / 2 + 16);
+        ctx.fillText('A Spartan Roguelike', cx, mid + 16);
+
+        // Personal best (shown between subtitle and tap prompt)
+        if (personalBest) {
+            ctx.fillStyle = '#ffcc44';
+            ctx.font = '11px monospace';
+            ctx.fillText(
+                `Your best: ${personalBest.score.toLocaleString()} as ${personalBest.title}`,
+                cx,
+                mid + 38
+            );
+        }
 
         // Tap prompt
         const alpha = 0.4 + Math.sin(this.pulseTimer * 3) * 0.4;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px monospace';
-        ctx.fillText('TAP TO START', canvasWidth / 2, canvasHeight / 2 + 80);
+        ctx.fillText('TAP TO START', cx, mid + 80);
         ctx.globalAlpha = 1;
 
         // Controls hint
         ctx.fillStyle = '#555555';
         ctx.font = '9px monospace';
-        ctx.fillText('LEFT: Boosters  |  RIGHT: Aim & Shoot', canvasWidth / 2, canvasHeight - 40);
+        ctx.fillText('LEFT: Boosters  |  RIGHT: Aim & Shoot', cx, canvasHeight - 40);
 
         ctx.textAlign = 'left';
     }

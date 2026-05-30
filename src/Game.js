@@ -17,8 +17,9 @@ import { MenuScreen } from './ui/MenuScreen.js';
 import { GameOverScreen } from './ui/GameOverScreen.js';
 import { ShareCard } from './ui/ShareCard.js';
 import { LevelTransition } from './ui/LevelTransition.js';
-import { GAME_WIDTH, COLORS } from './data/constants.js';
+import { GAME_WIDTH, COLORS, titleForLevel } from './data/constants.js';
 import { SFX } from './data/sounds.js';
+import { loadPersonalBest, saveIfPersonalBest } from './core/PersonalBest.js';
 
 const STATES = {
     MENU: 'MENU',
@@ -60,6 +61,10 @@ export class Game {
         this.gameOverScreen = new GameOverScreen();
         this.shareCard = new ShareCard();
         this.levelTransition = new LevelTransition();
+
+        // Personal best (persisted across sessions)
+        this.personalBest = loadPersonalBest();
+        this.isNewBest = false;
 
         // World entities
         this.player = null;
@@ -226,6 +231,9 @@ export class Game {
         if (p.y > this.camera.getDeathLineY() || p.isDead) {
             this.state = STATES.GAME_OVER;
             SFX.gameOver();
+            const runTitle = titleForLevel(this.level);
+            this.isNewBest = saveIfPersonalBest(p.score, runTitle);
+            if (this.isNewBest) this.personalBest = { score: p.score, title: runTitle };
             this.shareCard.show(this.player.score, this.level);
             return;
         }
@@ -270,7 +278,7 @@ export class Game {
 
         switch (this.state) {
             case STATES.MENU:
-                this.menuScreen.draw(ctx, w, h);
+                this.menuScreen.draw(ctx, w, h, this.personalBest);
                 break;
 
             case STATES.PLAYING:
@@ -284,7 +292,7 @@ export class Game {
 
             case STATES.GAME_OVER:
                 this._renderPlaying(ctx, w, h);
-                this.gameOverScreen.draw(ctx, w, h, this.player.score, this.level);
+                this.gameOverScreen.draw(ctx, w, h, this.player.score, this.level, this.personalBest, this.isNewBest);
                 break;
         }
     }
