@@ -32,6 +32,13 @@
 </head>
 <body>
     <canvas id="game" aria-label="Chief Jumper game canvas"></canvas>
+    <div id="share-card" class="hidden" role="dialog" aria-label="Share your result">
+        <p id="share-card-line">Your result</p>
+        <div id="share-card-actions">
+            <button id="share-copy-btn" type="button">Copy result</button>
+            <button id="share-tweet-btn" type="button">Share on X</button>
+        </div>
+    </div>
     <noscript>
         <p style="color:#fff;text-align:center;padding:2rem;font-family:sans-serif;">
             Chief Jumper needs JavaScript to run. Please enable it and reload.

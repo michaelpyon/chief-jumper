@@ -15,6 +15,7 @@ import { BoosterOverlay } from './ui/BoosterOverlay.js';
 import { JoystickOverlay } from './ui/JoystickOverlay.js';
 import { MenuScreen } from './ui/MenuScreen.js';
 import { GameOverScreen } from './ui/GameOverScreen.js';
+import { ShareCard } from './ui/ShareCard.js';
 import { LevelTransition } from './ui/LevelTransition.js';
 import { GAME_WIDTH, COLORS } from './data/constants.js';
 import { SFX } from './data/sounds.js';
@@ -57,6 +58,7 @@ export class Game {
         this.joystickOverlay = new JoystickOverlay();
         this.menuScreen = new MenuScreen();
         this.gameOverScreen = new GameOverScreen();
+        this.shareCard = new ShareCard();
         this.levelTransition = new LevelTransition();
 
         // World entities
@@ -99,6 +101,7 @@ export class Game {
             if (this.state === STATES.MENU) {
                 this._startLevel(1);
             } else if (this.state === STATES.GAME_OVER) {
+                this.shareCard.hide();
                 this.state = STATES.MENU;
             }
         };
@@ -118,6 +121,7 @@ export class Game {
         this.level = level;
         this.difficulty.setLevel(level);
         this.state = STATES.PLAYING;
+        if (this.shareCard) this.shareCard.hide();
 
         const startY = 5000;
         this.player = new Player(GAME_WIDTH / 2, startY);
@@ -222,6 +226,7 @@ export class Game {
         if (p.y > this.camera.getDeathLineY() || p.isDead) {
             this.state = STATES.GAME_OVER;
             SFX.gameOver();
+            this.shareCard.show(this.player.score, this.level);
             return;
         }
 

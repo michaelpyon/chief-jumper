@@ -67,6 +67,26 @@ export const LEVEL_HEIGHT_INCREMENT = 1500;
 // === Particles ===
 export const MAX_PARTICLES = 200;
 
+// === Corporate Ladder (job titles by level reached) ===
+export const JOB_TITLES = [
+    'Unpaid Intern',
+    'Junior Associate',
+    'Associate',
+    'Senior Associate',
+    'Manager',
+    'Senior Manager',
+    'Director',
+    'VP',
+    'SVP',
+    'Chief of Staff',
+    'Chief Executive Officer',
+];
+
+export function titleForLevel(level) {
+    const index = Math.min(Math.max(level - 1, 0), JOB_TITLES.length - 1);
+    return JOB_TITLES[index];
+}
+
 // === Colors ===
 export const COLORS = {
     bg: '#0a0a1a',
