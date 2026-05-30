@@ -54,12 +54,14 @@ export class MenuScreen {
             );
         }
 
-        // Tap prompt
+        // Tap prompt (touch device shows TAP, desktop shows CLICK)
+        const isTouchDevice = (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0);
+        const startPrompt = isTouchDevice ? 'TAP TO START' : 'CLICK TO START';
         const alpha = 0.4 + Math.sin(this.pulseTimer * 3) * 0.4;
         ctx.globalAlpha = alpha;
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px monospace';
-        ctx.fillText('TAP TO START', cx, mid + 80);
+        ctx.fillText(startPrompt, cx, mid + 80);
         ctx.globalAlpha = 1;
 
         // Controls hint

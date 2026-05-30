@@ -1,4 +1,4 @@
-import { COLORS, PLAYER_MAX_HEALTH } from '../data/constants.js';
+import { COLORS, PLAYER_MAX_HEALTH, titleForLevel } from '../data/constants.js';
 
 export class HUD {
     draw(ctx, canvasWidth, canvasHeight, player, boosterSystem, level) {
@@ -37,11 +37,12 @@ export class HUD {
         ctx.textAlign = 'right';
         ctx.fillText(`${player.score}`, canvasWidth - 10, 22);
 
-        // Level
+        // Level and current job title
         ctx.textAlign = 'left';
         ctx.font = '10px monospace';
         ctx.fillStyle = '#888888';
-        ctx.fillText(`LVL ${level}`, 10, barY + barH + 14);
+        const jobTitle = titleForLevel(level);
+        ctx.fillText(`LVL ${level}  |  ${jobTitle}`, 10, barY + barH + 14);
 
         // Booster charge indicator
         const chargePct = boosterSystem.getChargePercent();

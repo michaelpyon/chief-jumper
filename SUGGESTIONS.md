@@ -1,6 +1,6 @@
 # Chief Jumper - Audience Pass Suggestions
 
-_Updated: 2026-05-30_
+_Updated: 2026-05-30 (wave 2)_
 
 ---
 
@@ -60,17 +60,15 @@ is stale. This is a deploy-needed flag, not a code problem.
 - Why: First 5-second impression sets the tone. "Spartan Roguelike" signals wrong genre.
 - Effort: S (1-line change).
 
-**3. Add job title to HUD during play**
+**3. Add job title to HUD during play (DONE WAVE 2)**
 - File: `src/ui/HUD.js`
-- Show current job title (from `titleForLevel(level)`) small/dim in the top bar next to "LVL X".
+- Shows current job title next to "LVL X" in the top bar: "LVL 3  |  Manager".
 - Why: The evangelist wants to feel the corporate ascent while climbing, not just at death.
-- Effort: S. No deploy needed to verify.
 
-**4. Dual tap/click prompt on menu for desktop**
+**4. Dual tap/click prompt on menu for desktop (DONE WAVE 2)**
 - File: `src/ui/MenuScreen.js`
-- Detect `navigator.maxTouchPoints > 0` or just show "TAP / CLICK TO START".
-- Why: Desktop r/webgames lurkers see "TAP TO START" and feel the game is not for them.
-- Effort: S.
+- Detects `navigator.maxTouchPoints > 0`; touch devices see "TAP TO START", desktop sees "CLICK TO START".
+- Why: Desktop r/webgames lurkers felt the game was not for them with "TAP TO START".
 
 ### Medium Bets (M - worth doing, slightly more surface area)
 
