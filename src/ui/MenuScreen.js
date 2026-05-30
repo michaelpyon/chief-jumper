@@ -41,7 +41,7 @@ export class MenuScreen {
         // Subtitle
         ctx.fillStyle = '#888888';
         ctx.font = '10px monospace';
-        ctx.fillText('A Spartan Roguelike', cx, mid + 16);
+        ctx.fillText('Climb the Corporate Ladder', cx, mid + 16);
 
         // Personal best (shown between subtitle and tap prompt)
         if (personalBest) {

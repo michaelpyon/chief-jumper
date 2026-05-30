@@ -96,7 +96,7 @@ export class LevelTransition {
             ctx.fillText(`LEVEL ${this.level + 1}`, canvasWidth / 2, canvasHeight / 2 + 80);
             ctx.font = '10px monospace';
             ctx.fillStyle = '#888888';
-            ctx.fillText('Approaching next planet...', canvasWidth / 2, canvasHeight / 2 + 100);
+            ctx.fillText('Relocating to next floor...', canvasWidth / 2, canvasHeight / 2 + 100);
             ctx.textAlign = 'left';
         } else {
             // Ship in gameplay view
@@ -107,7 +107,7 @@ export class LevelTransition {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 18px monospace';
                 ctx.textAlign = 'center';
-                ctx.fillText('LEVEL COMPLETE', canvasWidth / 2, 80);
+                ctx.fillText('PROMOTED!', canvasWidth / 2, 80);
                 ctx.textAlign = 'left';
             }
         }
