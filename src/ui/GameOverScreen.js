@@ -1,4 +1,4 @@
-import { COLORS } from '../data/constants.js';
+import { COLORS, titleForLevel } from '../data/constants.js';
 
 export class GameOverScreen {
     constructor() {
@@ -18,17 +18,23 @@ export class GameOverScreen {
         ctx.fillStyle = '#ff3333';
         ctx.font = 'bold 24px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER', canvasWidth / 2, canvasHeight / 2 - 50);
+        ctx.fillText('LAID OFF', canvasWidth / 2, canvasHeight / 2 - 60);
+
+        // Job title reached
+        const title = titleForLevel(level);
+        ctx.fillStyle = '#ffcc44';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText(title.toUpperCase(), canvasWidth / 2, canvasHeight / 2 - 32);
 
         // Score
         ctx.fillStyle = '#ffffff';
         ctx.font = '16px monospace';
-        ctx.fillText(`Score: ${score}`, canvasWidth / 2, canvasHeight / 2 - 10);
+        ctx.fillText(`Score: ${score}`, canvasWidth / 2, canvasHeight / 2 + 4);
 
         // Level reached
         ctx.fillStyle = '#888888';
         ctx.font = '12px monospace';
-        ctx.fillText(`Level ${level}`, canvasWidth / 2, canvasHeight / 2 + 15);
+        ctx.fillText(`Level ${level}`, canvasWidth / 2, canvasHeight / 2 + 24);
 
         // Restart prompt
         const alpha = 0.4 + Math.sin(this.pulseTimer * 3) * 0.4;
