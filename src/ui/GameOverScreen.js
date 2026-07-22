@@ -1,4 +1,4 @@
-import { COLORS, titleForLevel } from '../data/constants.js';
+import { titleForLevel } from '../data/constants.js';
 
 export class GameOverScreen {
     constructor() {
@@ -34,7 +34,7 @@ export class GameOverScreen {
         // Score
         ctx.fillStyle = '#ffffff';
         ctx.font = '16px monospace';
-        ctx.fillText(`Score: ${score}`, cx, mid + 4);
+        ctx.fillText(`Score: ${score.toLocaleString()}`, cx, mid + 4);
 
         // Level reached
         ctx.fillStyle = '#888888';
@@ -53,7 +53,7 @@ export class GameOverScreen {
             // Show previous best for context
             ctx.fillStyle = '#555566';
             ctx.font = '11px monospace';
-            ctx.fillText(`Best: ${personalBest.score} as ${personalBest.title}`, cx, mid + 46);
+            ctx.fillText(`Best: ${personalBest.score.toLocaleString()} as ${personalBest.title}`, cx, mid + 46);
         }
 
         // Restart prompt
@@ -61,8 +61,13 @@ export class GameOverScreen {
         ctx.globalAlpha = alpha;
         ctx.fillStyle = '#ffffff';
         ctx.font = '14px monospace';
-        ctx.fillText('TAP TO RESTART', cx, mid + 74);
+        const isTouchDevice = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+        ctx.fillText(isTouchDevice ? 'TAP TO RESTART' : 'CLICK / ENTER TO RESTART', cx, mid + 74);
         ctx.globalAlpha = 1;
+
+        ctx.fillStyle = '#6db3ff';
+        ctx.font = '9px monospace';
+        ctx.fillText('chief-jumper.vercel.app', cx, Math.min(mid + 102, canvasHeight - 12));
 
         ctx.textAlign = 'left';
     }

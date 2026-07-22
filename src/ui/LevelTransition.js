@@ -1,4 +1,4 @@
-import { COLORS, GAME_WIDTH } from '../data/constants.js';
+import { GAME_WIDTH, titleForLevel } from '../data/constants.js';
 
 export class LevelTransition {
     constructor() {
@@ -90,13 +90,14 @@ export class LevelTransition {
             this._drawShip(ctx, canvasWidth / 2, canvasHeight / 2, 0.6);
 
             // Level text
-            ctx.fillStyle = '#ffffff';
+            const nextTitle = titleForLevel(this.level + 1);
+            ctx.fillStyle = '#ffcc44';
             ctx.font = 'bold 18px monospace';
             ctx.textAlign = 'center';
-            ctx.fillText(`LEVEL ${this.level + 1}`, canvasWidth / 2, canvasHeight / 2 + 80);
+            ctx.fillText(nextTitle.toUpperCase(), canvasWidth / 2, canvasHeight / 2 + 78);
             ctx.font = '10px monospace';
             ctx.fillStyle = '#888888';
-            ctx.fillText('Relocating to next floor...', canvasWidth / 2, canvasHeight / 2 + 100);
+            ctx.fillText(`Level ${this.level + 1} · Relocating to next floor...`, canvasWidth / 2, canvasHeight / 2 + 100);
             ctx.textAlign = 'left';
         } else {
             // Ship in gameplay view
@@ -104,10 +105,13 @@ export class LevelTransition {
 
             // Level complete banner
             if (this.phase === 'boarding' || this.phase === 'takeoff') {
-                ctx.fillStyle = '#ffffff';
+                const nextTitle = titleForLevel(this.level + 1);
+                ctx.fillStyle = '#ffcc44';
                 ctx.font = 'bold 18px monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText('PROMOTED!', canvasWidth / 2, 80);
+                ctx.font = 'bold 12px monospace';
+                ctx.fillText(nextTitle.toUpperCase(), canvasWidth / 2, 102);
                 ctx.textAlign = 'left';
             }
         }

@@ -2,38 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0a0a1a">
 
     <title>Chief Jumper - Climb the Corporate Ladder</title>
-    <meta name="description" content="A canvas-based vertical platformer where you boost, dodge, and climb your way up the org chart. Tap to jump, dual boosters to fly, survive the corporate grind.">
+    <meta name="description" content="Climb the org chart. Get laid off anyway. A dual-booster vertical platformer about the corporate ladder.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Chief Jumper - Climb the Corporate Ladder">
-    <meta property="og:description" content="A canvas-based vertical platformer where you boost, dodge, and climb your way up the org chart.">
+    <meta property="og:description" content="Climb the org chart. Get laid off anyway.">
     <meta property="og:url" content="https://chief-jumper.vercel.app">
     <meta property="og:image" content="https://chief-jumper.vercel.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Chief Jumper laid-off result card showing a gold VP title and score.">
     <meta property="og:site_name" content="Chief Jumper">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Chief Jumper - Climb the Corporate Ladder">
-    <meta name="twitter:description" content="Boost, dodge, and climb your way up the org chart in this canvas-based vertical platformer.">
+    <meta name="twitter:description" content="Climb the org chart. Get laid off anyway.">
     <meta name="twitter:image" content="https://chief-jumper.vercel.app/og-image.png">
+    <meta name="twitter:image:alt" content="Chief Jumper laid-off result card showing a gold VP title and score.">
+    <meta name="twitter:creator" content="@mikaships">
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="canonical" href="https://chief-jumper.vercel.app">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="game" aria-label="Chief Jumper game canvas"></canvas>
+    <canvas id="game" tabindex="0" aria-label="Chief Jumper game canvas. Press Enter or Space to start, resume, or restart."></canvas>
     <div id="share-card" class="hidden" role="dialog" aria-label="Share your result">
         <p id="share-card-line">Your result</p>
+        <p id="share-card-url">chief-jumper.vercel.app</p>
         <div id="share-card-actions">
             <button id="share-copy-btn" type="button">Copy result</button>
             <button id="share-tweet-btn" type="button">Share on X</button>

@@ -33,6 +33,7 @@ export class Game {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.state = STATES.MENU;
+        this.paused = false;
         this.level = 1;
 
         // Size the canvas
@@ -102,17 +103,28 @@ export class Game {
     }
 
     _setupMenuInput() {
-        const handler = () => {
+        const handler = (event) => {
+            if (event.type === 'keydown') {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+                if (event.target instanceof HTMLButtonElement) return;
+                event.preventDefault();
+            }
+
+            if (this.paused) {
+                this.resume();
+                return;
+            }
+
             if (this.state === STATES.MENU) {
                 this._startLevel(1);
             } else if (this.state === STATES.GAME_OVER) {
-                this.shareCard.hide();
-                this.state = STATES.MENU;
+                this._startLevel(1);
             }
         };
 
         this.canvas.addEventListener('touchstart', handler);
         this.canvas.addEventListener('mousedown', handler);
+        window.addEventListener('keydown', handler);
     }
 
     start() {
@@ -120,6 +132,23 @@ export class Game {
             (dt) => this._update(dt),
             (alpha) => this._render(alpha)
         );
+    }
+
+    pause() {
+        if (this.paused || (this.state !== STATES.PLAYING && this.state !== STATES.LEVEL_TRANSITION)) {
+            return false;
+        }
+        this.paused = true;
+        this.input.suspend();
+        return true;
+    }
+
+    resume() {
+        if (!this.paused) return false;
+        this.paused = false;
+        this.input.resume();
+        this.canvas.focus({ preventScroll: true });
+        return true;
     }
 
     _startLevel(level) {
@@ -142,6 +171,8 @@ export class Game {
     }
 
     _update(dt) {
+        if (this.paused) return;
+
         switch (this.state) {
             case STATES.MENU:
                 this.menuScreen.update(dt);
@@ -162,6 +193,7 @@ export class Game {
                 this.gameOverScreen.update(dt);
                 break;
         }
+
     }
 
     _updatePlaying(dt) {
@@ -295,6 +327,24 @@ export class Game {
                 this.gameOverScreen.draw(ctx, w, h, this.player.score, this.level, this.personalBest, this.isNewBest);
                 break;
         }
+
+        if (this.paused) {
+            this._drawPauseOverlay(ctx, w, h);
+        }
+    }
+
+    _drawPauseOverlay(ctx, w, h) {
+        ctx.fillStyle = 'rgba(10, 10, 26, 0.88)';
+        ctx.fillRect(0, 0, w, h);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#3399ff';
+        ctx.font = 'bold 18px monospace';
+        ctx.fillText('MEETING IN PROGRESS', w / 2, h / 2 - 14);
+        ctx.fillStyle = '#cdd6e4';
+        ctx.font = '10px monospace';
+        const isTouchDevice = typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+        ctx.fillText(isTouchDevice ? 'TAP TO RESUME' : 'CLICK / ENTER TO RESUME', w / 2, h / 2 + 18);
+        ctx.textAlign = 'left';
     }
 
     _renderPlaying(ctx, w, h) {

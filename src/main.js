@@ -1,19 +1,29 @@
 import { Game } from './Game.js';
 import { preloadSprites } from './core/AssetLoader.js';
 
-// Pause the loop when the tab isn't visible to save battery and prevent input drift
+function stopForInterruption() {
+    const game = window.__game;
+    if (!game || !game.loop) return;
+    game.pause();
+    game.loop.stop();
+}
+
+function restartLoop() {
+    const game = window.__game;
+    if (!game || !game.loop || game.loop.running) return;
+    game.loop.start(
+        (dt) => game._update(dt),
+        (alpha) => game._render(alpha)
+    );
+}
+
+// Freeze active runs on tab or window interruption. Returning shows a deliberate resume state.
 document.addEventListener('visibilitychange', () => {
-    if (window.__game && window.__game.loop) {
-        if (document.hidden) {
-            window.__game.loop.stop();
-        } else if (!window.__game.loop.running) {
-            window.__game.loop.start(
-                (dt) => window.__game._update(dt),
-                (alpha) => window.__game._render(alpha)
-            );
-        }
-    }
+    if (document.hidden) stopForInterruption();
+    else restartLoop();
 });
+window.addEventListener('blur', stopForInterruption);
+window.addEventListener('focus', restartLoop);
 
 try {
     preloadSprites();
@@ -23,5 +33,5 @@ try {
     game.start();
 } catch (err) {
     console.error('Chief Jumper failed to start:', err);
-    document.body.innerHTML = '<p style="color:#fff;font-family:sans-serif;padding:2rem;text-align:center;">Game failed to load. Please reload the page.</p>';
+    document.body.innerHTML = '<p style="color:#fff;font-family:monospace;padding:2rem;text-align:center;">The office is closed. Refresh to try again.</p>';
 }

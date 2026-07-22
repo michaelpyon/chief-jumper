@@ -1,4 +1,4 @@
-import { COLORS, PLAYER_MAX_HEALTH, titleForLevel } from '../data/constants.js';
+import { COLORS, titleForLevel } from '../data/constants.js';
 
 export class HUD {
     draw(ctx, canvasWidth, canvasHeight, player, boosterSystem, level) {

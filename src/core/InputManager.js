@@ -1,4 +1,4 @@
-import { JOYSTICK_RADIUS, JOYSTICK_DEAD_ZONE, GAME_WIDTH } from '../data/constants.js';
+import { JOYSTICK_RADIUS, JOYSTICK_DEAD_ZONE } from '../data/constants.js';
 
 export class InputManager {
     constructor(canvas) {
@@ -18,6 +18,7 @@ export class InputManager {
         // Mouse fallback state (for desktop testing)
         this.mouseDown = false;
         this.mouseZone = null;
+        this.reenableTimer = null;
 
         this._bindEvents();
     }
@@ -186,15 +187,32 @@ export class InputManager {
 
     // --- Reset (call on level start to clear stale input) ---
 
-    reset() {
+    reset(reenable = true) {
         this.activeTouches.clear();
         this.joystick = { active: false, angle: 0, magnitude: 0, originX: 0, originY: 0 };
         this.booster = { side: null, charging: false, startTime: 0 };
         this.mouseDown = false;
         this.mouseZone = null;
         this.enabled = false;
+        if (this.reenableTimer) {
+            clearTimeout(this.reenableTimer);
+            this.reenableTimer = null;
+        }
         // Re-enable after a short delay so the menu-start click doesn't register as gameplay input
-        setTimeout(() => { this.enabled = true; }, 300);
+        if (reenable) {
+            this.reenableTimer = setTimeout(() => {
+                this.enabled = true;
+                this.reenableTimer = null;
+            }, 300);
+        }
+    }
+
+    suspend() {
+        this.reset(false);
+    }
+
+    resume() {
+        this.reset(true);
     }
 
     // --- Event system ---

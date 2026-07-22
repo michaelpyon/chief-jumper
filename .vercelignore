@@ -1,0 +1,6 @@
+.claude/
+.gstack/
+*.md
+og-image 2.svg
+.DS_Store
+.git/
