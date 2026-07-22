@@ -15,6 +15,10 @@ html, body {
     user-select: none;
 }
 
+button {
+    touch-action: manipulation;
+}
+
 #game {
     display: block;
     width: 100%;
